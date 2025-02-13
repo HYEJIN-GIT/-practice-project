@@ -77,8 +77,16 @@ let randomNum = 0
 let inputNum = document.getElementById("input-num")
 let goBtn = document.getElementById("go")
 let resultArea =document.getElementById("result")
+let chance =5;
+let distinctValue = []
+let chanceArea = document.getElementById("chance")
+let resetBtn = document.getElementById("reset")
+
 
 goBtn.addEventListener("click",play)
+resetBtn.addEventListener("click",resetPlay)
+inputNum.addEventListener("focus",function(){inputNum.value=""})
+
 
 
 function randomNumPick(){
@@ -88,6 +96,13 @@ function randomNumPick(){
 
 
 function play(){
+
+    chance--
+    chanceArea.textContent = `남은기회 ${chance}번`
+    
+
+
+
    let userValue = inputNum.value
    if(userValue>randomNum){
     resultArea.textContent = "DOWN"
@@ -96,8 +111,25 @@ function play(){
    }else if(userValue=randomNum){
    resultArea.textContent = "정답"
 }
+
+if(chance<1){
+    goBtn.disabled = true
 }
 
+}
+
+function resetPlay(){   
+   
+    inputNum.value = ""
+    randomNumPick()
+    goBtn.disabled = false
+    chance = 5
+    chanceArea.textContent = `남은기회 ${chance}번`
+    resultArea.textContent = "결과값이 여기 나옵니다"
+   
+    
+
+}
 
 
 randomNumPick()
