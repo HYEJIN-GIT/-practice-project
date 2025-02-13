@@ -97,13 +97,24 @@ function randomNumPick(){
 
 function play(){
 
+
+
+    let userValue = inputNum.value
+
+    if(userValue<1 || userValue>100){
+        resultArea.textContent = "1과 100사이의 숫자를 입력하세요."
+        return;
+    }
+    if(distinctValue.includes(userValue)){
+        resultArea.textContent = "중복된 숫자입니다.다시 입력하세요."
+        return;
+    }
+
+
     chance--
     chanceArea.textContent = `남은기회 ${chance}번`
-    
 
-
-
-   let userValue = inputNum.value
+   
    if(userValue>randomNum){
     resultArea.textContent = "DOWN"
    }else if(userValue<randomNum){
@@ -111,9 +122,12 @@ function play(){
    }else if(userValue=randomNum){
    resultArea.textContent = "정답"
 }
+distinctValue.push(userValue)
+console.log(distinctValue)
 
 if(chance<1){
     goBtn.disabled = true
+    resultArea.textContent = "실패"
 }
 
 }
