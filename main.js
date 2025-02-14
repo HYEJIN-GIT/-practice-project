@@ -72,78 +72,62 @@
 // pickRandomNum();
 
 
-
 let randomNum = 0
 let inputNum = document.getElementById("input-num")
 let goBtn = document.getElementById("go")
-let resultArea =document.getElementById("result")
-let chance =5;
-let distinctValue = []
+let resultArea = document.getElementById("result")
+let chance = 5
+let distinct = []
 let chanceArea = document.getElementById("chance")
-let resetBtn = document.getElementById("reset")
-
+let resetButton = document.getElementById("reset")
 
 goBtn.addEventListener("click",play)
-resetBtn.addEventListener("click",resetPlay)
-inputNum.addEventListener("focus",function(){inputNum.value=""})
+resetButton.addEventListener("click",reset)
+inputNum.addEventListener("focus",function(){inputNum.value = ""})
 
-
-
-function randomNumPick(){
+function randomPlay(){
     randomNum = Math.floor(Math.random()*100)+1
     console.log(randomNum)
 }
 
-
 function play(){
-
-
-
-    let userValue = inputNum.value
-
-    if(userValue<1 || userValue>100){
-        resultArea.textContent = "1과 100사이의 숫자를 입력하세요."
+   let resultValue = inputNum.value
+  
+   if(resultValue<1||resultValue>100){
+    resultArea.textContent = "1과 100사이의 값만 입력하세요."
         return;
-    }
-    if(distinctValue.includes(userValue)){
-        resultArea.textContent = "중복된 숫자입니다.다시 입력하세요."
+   }
+
+   if(distinct.includes(resultValue)){
+        resultArea.textContent = "이미 입력된 값입니다. 다시 입력하세요"
         return;
-    }
-
-
+   }
     chance--
-    chanceArea.textContent = `남은기회 ${chance}번`
+   chanceArea.textContent = `남은 찬스 : ${chance}번`
 
-   
-   if(userValue>randomNum){
-    resultArea.textContent = "DOWN"
-   }else if(userValue<randomNum){
-    resultArea.textContent = "UP"
-   }else if(userValue=randomNum){
-   resultArea.textContent = "정답"
-}
-distinctValue.push(userValue)
-console.log(distinctValue)
-
+   if(resultValue>randomNum){
+    resultArea.textContent = "down"
+   }else if(resultValue<randomNum){
+    resultArea.textContent = "up"
+   }else{
+    resultArea.textContent = "정답입니다"
+   }
+   distinct.push(resultValue)
+   console.log(distinct)
 if(chance<1){
-    goBtn.disabled = true
-    resultArea.textContent = "실패"
+    goBtn.disabled = true;
 }
 
 }
 
-function resetPlay(){   
-   
-    inputNum.value = ""
-    randomNumPick()
-    goBtn.disabled = false
-    chance = 5
-    chanceArea.textContent = `남은기회 ${chance}번`
-    resultArea.textContent = "결과값이 여기 나옵니다"
-   
-    
-
+function reset(){
+inputNum.value =""
+randomPlay()
+chance = 5
+ chanceArea.textContent = `남은 찬스 : ${chance}번`
+goBtn.disabled = false
+ resultArea.textContent = "결과값이 나옵니다"
 }
 
 
-randomNumPick()
+randomPlay()
