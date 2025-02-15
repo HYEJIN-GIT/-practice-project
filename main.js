@@ -92,16 +92,15 @@ function randomPlay(){
 
 function play(){
    let resultValue = inputNum.value
+ if(resultValue<1|| resultValue>100){
+    resultArea.textContent = "1과 100사이의 값을 입력하세요."
+    return // 리턴 값이 없어서 입력이 안됨
+ }
+ if(distinct.includes(resultValue)){
+    resultArea.textContent = "이미 입력된 값입니다. 다시 입력하새요."
+    return
+ }
   
-   if(resultValue<1||resultValue>100){
-    resultArea.textContent = "1과 100사이의 값만 입력하세요."
-        return;
-   }
-
-   if(distinct.includes(resultValue)){
-        resultArea.textContent = "이미 입력된 값입니다. 다시 입력하세요"
-        return;
-   }
     chance--
    chanceArea.textContent = `남은 찬스 : ${chance}번`
 
@@ -113,9 +112,11 @@ function play(){
     resultArea.textContent = "정답입니다"
    }
    distinct.push(resultValue)
+ 
    console.log(distinct)
 if(chance<1){
     goBtn.disabled = true;
+    resultArea.textContent = "기회 끝"
 }
 
 }
